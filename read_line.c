@@ -17,7 +17,6 @@ int read_line(FILE *file)
 	file_var.opcode = rm_space(file_var.buffer);
 	if (file_var.opcode != NULL)
 	{
-		len = strlen(file_var.opcode) - 1;
 		file_var.line_number++;
 		if (!file_var.opcode[0])
 			strcpy(file_var.opcode, "nop");
