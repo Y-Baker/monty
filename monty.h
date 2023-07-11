@@ -20,6 +20,15 @@
 
 
 														/*STRUCTURE*/
+/**
+ * struct stack_s - Doubly linked list representation of a stack (or queue)
+ * @n: Integer
+ * @prev: Points to the previous element of the stack (or queue)
+ * @next: Points to the next element of the stack (or queue)
+ *
+ * Description: Doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
+ */
 typedef struct stack_s
 {
 	int n;
@@ -28,6 +37,14 @@ typedef struct stack_s
 } stack_t;
 
 
+/**
+ * struct instruction_s - Opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO
+ */
 typedef struct instruction_s
 {
 	char *opcode;
@@ -35,6 +52,14 @@ typedef struct instruction_s
 } instruction_t;
 
 
+/**
+ * Global_Var - contain all needed variables
+ * @fd: file name
+ * @buffer: the buffer take line by line
+ * @opcode: the opcode
+ * @run: the structure contain all supported function with it address
+ * @line_number: the line number
+*/
 typedef struct Global_Var
 {
 	FILE *fd;
@@ -56,7 +81,9 @@ void free_all(void);
 int excute_func(vars_t *file_var);
 instruction_t *creat_instruc();
 int getnum(char *str, int line);
+char *rm_space(char *buffer);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
 
 #endif /*MAIN_H*/

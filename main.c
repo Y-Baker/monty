@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	{
 		if (excute_func(&file_var))
 		{
-			dprintf(STDERR_FILENO, "L%u: unknown instruction %s",
+			dprintf(STDERR_FILENO, "L%u: unknown instruction %s\n",
 			file_var.line_number, file_var.opcode);
 			free_all();
 			return (EXIT_FAILURE);

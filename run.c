@@ -25,5 +25,6 @@ int excute_func(vars_t *file_var)
 			return (EXIT_SUCCESS);
 		}
 	}
+	strcpy(file_var->opcode, str);
 	return (EXIT_FAILURE);
 }

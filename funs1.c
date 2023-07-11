@@ -43,11 +43,7 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	tmp = *stack;
 	if (!stack || !tmp)
-	{
-		dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_number);
-		free_all();
-		exit(EXIT_FAILURE);
-	}
+		return;
 	while (tmp)
 	{
 		dprintf(STDOUT_FILENO, "%d\n", tmp->n);
@@ -55,3 +51,13 @@ void pall(stack_t **stack, unsigned int line_number)
 	}
 }
 
+/**
+ * nop - do nothing
+ * @stack: the stack
+ * @line_number: the line which are executed
+*/
+void nop(stack_t **stack __attribute__((unused)), unsigned int line_number)
+{
+	if (line_number > 0)
+		return;
+}

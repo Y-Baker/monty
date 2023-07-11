@@ -14,7 +14,8 @@ void start_file(vars_t *file_var)
 	file_var->top = NULL;
 	file_var->run = creat_instruc();
 	file_var->buffer = malloc(MAX_BUFFER * sizeof(char));
-	if (!file_var->buffer)
+	file_var->opcode = malloc(MAX_BUFFER * sizeof(char));
+	if (!file_var->buffer || !file_var->opcode)
 	{
 		free_all();
 		perror("Error: malloc failed\n");
@@ -27,12 +28,14 @@ void start_file(vars_t *file_var)
 */
 void free_all(void)
 {
-	if (file_var.buffer != NULL)
+	if (1)
 		free(file_var.buffer);
 	if (file_var.fd != NULL)
 		fclose(file_var.fd);
 	if (file_var.run != NULL)
 		free(file_var.run);
+	if (1)
+		free(file_var.opcode);
 	if (file_var.top != NULL)
 	{
 		while (file_var.top->next)
@@ -61,8 +64,8 @@ instruction_t *creat_instruc()
 	}
 	funs[0].opcode = "push", funs[0].f = push;
 	funs[1].opcode = "pall", funs[1].f = pall;
-	funs[2].opcode = NULL, funs[2].f = NULL;
-
+	funs[2].opcode = "nop", funs[2].f = nop;
+	funs[3].opcode = NULL, funs[3].f = NULL;
 	return (funs);
 }
 
@@ -96,4 +99,48 @@ int getnum(char *str, int line)
 		i++;
 	}
 	return (atoi(num));
+}
+
+
+/**
+ * rm_space - rmove spaces from buffer
+ * @buffer: the buffer which has the string
+ * Return: the new buffer
+*/
+char *rm_space(char *buffer)
+{
+	int i = 0;
+	int idx = 0;
+	int stat = TRUE_STATE;
+	char *new_buffer;
+
+	new_buffer = file_var.opcode;
+
+	if (!buffer)
+	{
+		free(new_buffer);
+		return (NULL);
+	}
+	while (buffer[i])
+	{
+		if (buffer[i] == ' ' && stat)
+		{
+			i++;
+			continue;
+		}
+		else if (buffer[i] != ' ')
+		{
+			stat = FALSE_STATE;
+			new_buffer[idx] = buffer[i];
+		}
+		else
+		{
+			stat = TRUE_STATE; 
+			new_buffer[idx] = ' ';
+		}
+		idx++;
+		i++;
+	}
+	new_buffer[idx] = '\00';
+	return (new_buffer);
 }
