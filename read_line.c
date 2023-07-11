@@ -8,7 +8,6 @@
 
 int read_line(FILE *file)
 {
-	int len;
 	char *tmp;
 
 	tmp = file_var.buffer;
