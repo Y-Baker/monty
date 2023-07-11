@@ -72,6 +72,7 @@ instruction_t *creat_instruc()
 /**
  * getnum - get number for push
  * @str: the string
+ * @line: the line number
  * Usage: push <num>
  * Return: the number
 */
@@ -135,7 +136,7 @@ char *rm_space(char *buffer)
 		}
 		else
 		{
-			stat = TRUE_STATE; 
+			stat = TRUE_STATE;
 			new_buffer[idx] = ' ';
 		}
 		idx++;

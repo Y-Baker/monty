@@ -53,11 +53,12 @@ typedef struct instruction_s
 
 
 /**
- * Global_Var - contain all needed variables
+ * struct Global_Var - contain all needed variables
  * @fd: file name
  * @buffer: the buffer take line by line
  * @opcode: the opcode
  * @run: the structure contain all supported function with it address
+ * @top: point to the head of the stack double linked list
  * @line_number: the line number
 */
 typedef struct Global_Var
