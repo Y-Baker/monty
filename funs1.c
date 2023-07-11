@@ -19,7 +19,7 @@ void push(stack_t **stack, unsigned int line_number)
 		perror("Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	if (TRUE_STATE) /*stack*/
+	if (file_var.mode == STACK || !*stack)
 	{
 		new->n = num;
 		new->prev = NULL;
@@ -50,6 +50,60 @@ void pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		tmp = tmp->next;
 	}
 }
+
+
+/**
+ * pint - print the number in the top of the stack
+ * @stack: the stack
+ * @line_number: the line which are executed
+*/
+void pint(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	tmp = *stack;
+	if (!stack || !tmp)
+	{
+		dprintf(STDERR_FILENO, "L%u: can't pint, stack empty\n", line_number);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	dprintf(STDOUT_FILENO, "%d\n", tmp->n);
+}
+
+
+
+/**
+ * pop - remove element from the stack
+ * @stack: the stack
+ * @line_number: the line which are executed
+*/
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (!stack || !*stack)
+	{
+		dprintf(STDERR_FILENO, "L%u: can't pop an empty stack\n", line_number);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+
+	if ((*stack)->next)
+	{
+		tmp = (*stack)->next;
+		free(tmp->prev);
+		tmp->prev = NULL;
+		file_var.top = tmp;
+	}
+	else
+	{
+		free(*stack);
+		file_var.top = NULL;
+	}
+}
+
+
 
 /**
  * nop - do nothing

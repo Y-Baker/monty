@@ -28,3 +28,48 @@ int read_line(FILE *file)
 	}
 	return (EXIT_FAILURE);
 }
+
+
+
+/**
+ * rm_space - rmove spaces from buffer
+ * @buffer: the buffer which has the string
+ * Return: the new buffer
+*/
+char *rm_space(char *buffer)
+{
+	int i = 0;
+	int idx = 0;
+	int stat = TRUE_STATE;
+	char *new_buffer;
+
+	new_buffer = file_var.opcode;
+
+	if (!buffer)
+	{
+		free(new_buffer);
+		return (NULL);
+	}
+	while (buffer[i])
+	{
+		if (buffer[i] == ' ' && stat)
+		{
+			i++;
+			continue;
+		}
+		else if (buffer[i] != ' ')
+		{
+			stat = FALSE_STATE;
+			new_buffer[idx] = buffer[i];
+		}
+		else
+		{
+			stat = TRUE_STATE;
+			new_buffer[idx] = ' ';
+		}
+		idx++;
+		i++;
+	}
+	new_buffer[idx] = '\00';
+	return (new_buffer);
+}

@@ -5,6 +5,8 @@
 #define MAX_BUFFER 1000
 #define TRUE_STATE 1
 #define FALSE_STATE 0
+#define STACK 0
+#define QUEUE 1
 #define _POSIX_C_SOURCE 200809L
 														/*HEADER*/
 #include <stdio.h>
@@ -60,6 +62,7 @@ typedef struct instruction_s
  * @run: the structure contain all supported function with it address
  * @top: point to the head of the stack double linked list
  * @line_number: the line number
+ * @mode: 0 if it stack and 1 if it queue
 */
 typedef struct Global_Var
 {
@@ -69,6 +72,7 @@ typedef struct Global_Var
 	instruction_t *run;
 	stack_t *top;
 	unsigned int line_number;
+	int mode;
 } vars_t;
 
 
@@ -76,15 +80,20 @@ extern vars_t file_var;
 
 
 														/*PROTOTYPE*/
-void start_file(vars_t *file_var);
+void start(vars_t *file_var);
 int read_line(FILE *file);
 void free_all(void);
 int excute_func(vars_t *file_var);
 instruction_t *creat_instruc();
 int getnum(char *str, int line);
 char *rm_space(char *buffer);
+int isNumber(char *str);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
 
 #endif /*MAIN_H*/

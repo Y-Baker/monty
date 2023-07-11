@@ -1,11 +1,11 @@
 #include "monty.h"
 
 /**
- * start_file - get vars type ready to start interpreter
+ * start - get vars type ready to start interpreter
  * @file_var: the global var
 */
 
-void start_file(vars_t *file_var)
+void start(vars_t *file_var)
 {
 	file_var->fd = NULL;
 	file_var->line_number = 0;
@@ -13,6 +13,7 @@ void start_file(vars_t *file_var)
 	file_var->opcode = NULL;
 	file_var->top = NULL;
 	file_var->run = creat_instruc();
+	file_var->mode = STACK;
 	file_var->buffer = malloc(MAX_BUFFER * sizeof(char));
 	file_var->opcode = malloc(MAX_BUFFER * sizeof(char));
 	if (!file_var->buffer || !file_var->opcode)
@@ -65,7 +66,11 @@ instruction_t *creat_instruc()
 	funs[0].opcode = "push", funs[0].f = push;
 	funs[1].opcode = "pall", funs[1].f = pall;
 	funs[2].opcode = "nop", funs[2].f = nop;
-	funs[3].opcode = NULL, funs[3].f = NULL;
+	funs[3].opcode = "pint", funs[3].f = pint;
+	funs[4].opcode = "pop", funs[4].f = pop;
+	funs[5].opcode = "swap", funs[5].f = swap;
+	funs[6].opcode = "add", funs[6].f = add;
+	funs[7].opcode = NULL, funs[7].f = NULL;
 	return (funs);
 }
 
@@ -85,63 +90,52 @@ int getnum(char *str, int line)
 	{
 		if (str[i] == ' ' && str[i + 1] != ' ')
 		{
-			if (str[i + 1] >= '0' && str[i + 1] <= '9')
+			if (str[i + 1] == '-' && str[i + 2] >= '0' && str[i + 2] <= '9')
+			{
+				num = &str[i + 1];
+				break;
+			}
+			else if (str[i + 1] >= '0' && str[i + 1] <= '9')
 			{
 				num = &str[i + 1];
 				break;
 			}
 			else
 			{
-				dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line);
-				free_all();
-				exit(EXIT_FAILURE);
+				num = NULL;
+				break;
 			}
 		}
 		i++;
 	}
-	return (atoi(num));
+	if (!isNumber(num))
+		return (atoi(num));
+
+	dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line);
+	free_all();
+	exit(EXIT_FAILURE);
+
 }
 
 
 /**
- * rm_space - rmove spaces from buffer
- * @buffer: the buffer which has the string
- * Return: the new buffer
+ * isNumber - check if all the string is number or not
+ * @str: the string to checked
+ * Return: 0 if success ,Otherwise 1
 */
-char *rm_space(char *buffer)
+int isNumber(char *str)
 {
 	int i = 0;
-	int idx = 0;
-	int stat = TRUE_STATE;
-	char *new_buffer;
 
-	new_buffer = file_var.opcode;
+	if (!str)
+		return (EXIT_FAILURE);
 
-	if (!buffer)
+	while (str[i])
 	{
-		free(new_buffer);
-		return (NULL);
-	}
-	while (buffer[i])
-	{
-		if (buffer[i] == ' ' && stat)
-		{
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
 			i++;
-			continue;
-		}
-		else if (buffer[i] != ' ')
-		{
-			stat = FALSE_STATE;
-			new_buffer[idx] = buffer[i];
-		}
 		else
-		{
-			stat = TRUE_STATE;
-			new_buffer[idx] = ' ';
-		}
-		idx++;
-		i++;
+			return (EXIT_FAILURE);
 	}
-	new_buffer[idx] = '\00';
-	return (new_buffer);
+	return (EXIT_SUCCESS);
 }
