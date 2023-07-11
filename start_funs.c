@@ -134,6 +134,8 @@ int isNumber(char *str)
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
 			i++;
+		else if (str[i] == ' ')
+			break;
 		else
 			return (EXIT_FAILURE);
 	}
