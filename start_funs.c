@@ -83,7 +83,7 @@ instruction_t *creat_instruc()
 */
 int getnum(char *str, int line)
 {
-	char *num;
+	char *num = NULL;
 	short i = 0;
 
 	while (str[i])

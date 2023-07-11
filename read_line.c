@@ -20,8 +20,6 @@ int read_line(FILE *file)
 	{
 		len = strlen(file_var.opcode) - 1;
 		file_var.line_number++;
-		if (file_var.opcode[len] == '\n')
-			file_var.opcode[len] = '\00';
 		if (!file_var.opcode[0])
 			strcpy(file_var.opcode, "nop");
 		return (EXIT_SUCCESS);
@@ -70,6 +68,10 @@ char *rm_space(char *buffer)
 		idx++;
 		i++;
 	}
+	if (new_buffer[idx - 1] == '\n' || new_buffer[idx - 1] == ' ')
+		idx--;
+	if (new_buffer[idx - 1] == ' ')
+		idx--;
 	new_buffer[idx] = '\00';
 	return (new_buffer);
 }
