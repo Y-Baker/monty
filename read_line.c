@@ -11,7 +11,7 @@ int read_line(FILE *file)
 	int len;
 
 	file_var.opcode = NULL;
-	file_var.opcode = fgets(file_var.buffer, sizeof(file_var.buffer), file);
+	file_var.opcode = fgets(file_var.buffer, MAX_BUFFER, file);
 	if (file_var.opcode != NULL)
 	{
 		len = strlen(file_var.opcode) - 1;
