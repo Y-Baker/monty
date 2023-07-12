@@ -70,7 +70,17 @@ instruction_t *creat_instruc()
 	funs[4].opcode = "pop", funs[4].f = pop;
 	funs[5].opcode = "swap", funs[5].f = swap;
 	funs[6].opcode = "add", funs[6].f = add;
-	funs[7].opcode = NULL, funs[7].f = NULL;
+	funs[7].opcode = "sub", funs[7].f = sub;
+	funs[8].opcode = "div", funs[8].f = _div;
+	funs[9].opcode = "mul", funs[9].f = mul;
+	funs[10].opcode = "mod", funs[10].f = mod;
+	funs[11].opcode = "pchar", funs[11].f = pchar;
+	funs[12].opcode = "pstr", funs[12].f = pstr;
+	funs[13].opcode = "rotl", funs[13].f = rotl;
+	funs[14].opcode = "rotr", funs[14].f = rotr;
+	funs[15].opcode = "stack", funs[15].f = stack;
+	funs[16].opcode = "queue", funs[16].f = queue;
+	funs[17].opcode = NULL, funs[17].f = NULL;
 	return (funs);
 }
 

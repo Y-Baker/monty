@@ -18,7 +18,7 @@ int read_line(FILE *file)
 	if (file_var.opcode != NULL)
 	{
 		file_var.line_number++;
-		if (!file_var.opcode[0])
+		if (!file_var.opcode[0] || file_var.opcode[0] == '#')
 			strcpy(file_var.opcode, "nop");
 		return (EXIT_SUCCESS);
 	}

@@ -29,7 +29,15 @@ void push(stack_t **stack, unsigned int line_number)
 		tmp = new;
 		file_var.top = new;
 	}
-
+	else if (file_var.mode == QUEUE)
+	{
+		new->n = num;
+		new->next = NULL;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->prev = tmp;
+	}
 }
 
 /**
@@ -112,6 +120,5 @@ void pop(stack_t **stack, unsigned int line_number)
 */
 void nop(stack_t **stack __attribute__((unused)), unsigned int line_number)
 {
-	if (line_number > 0)
-		return;
+	(void) line_number;
 }
