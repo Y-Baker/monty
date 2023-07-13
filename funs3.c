@@ -61,12 +61,12 @@ void pchar(stack_t **stack, unsigned int line_number)
  * @stack: the stack
  * @line_number: the line which are excuted
 */
-void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
+void pstr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_t *tmp = *stack;
+	(void) line_number;
 
-	tmp = *stack;
-	if (!tmp || !stack)
+	if (!stack || !*stack)
 	{
 		putchar('\n');
 		return;
@@ -75,9 +75,9 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	{
 		if (tmp->n == 0)
 			break;
-		if (!__isascii((tmp)->n))
+		if (!isascii((tmp)->n))
 			break;
-		dprintf(STDOUT_FILENO, "%c", tmp->n);
+		putchar(tmp->n);
 		tmp = tmp->next;
 	}
 	putchar('\n');
