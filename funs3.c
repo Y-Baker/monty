@@ -66,19 +66,20 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	stack_t *tmp;
 
 	tmp = *stack;
-	if (!tmp)
+	if (!tmp || !stack)
 	{
 		putchar('\n');
 		return;
 	}
 	while (tmp)
 	{
-		if (tmp->n == 0 || !__isascii(tmp->n))
+		if (tmp->n == 0)
+			break;
+		if (!__isascii((tmp)->n))
 			break;
 		dprintf(STDOUT_FILENO, "%c", tmp->n);
 		tmp = tmp->next;
 	}
-	putchar('\n');
 	putchar('\n');
 }
 
@@ -133,3 +134,4 @@ void rotr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	tmp->prev = NULL;
 	*stack = tmp;
 }
+
