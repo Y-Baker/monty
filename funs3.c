@@ -67,7 +67,10 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 
 	tmp = *stack;
 	if (!tmp)
+	{
 		putchar('\n');
+		return;
+	}
 	while (tmp)
 	{
 		if (tmp->n == 0 || !__isascii(tmp->n))
