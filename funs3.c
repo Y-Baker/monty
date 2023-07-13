@@ -79,6 +79,7 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		tmp = tmp->next;
 	}
 	putchar('\n');
+	putchar('\n');
 }
 
 
