@@ -66,21 +66,13 @@ void pstr(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	stack_t *tmp;
 
 	tmp = *stack;
-	if (!tmp || !stack)
+	while (tmp && tmp->n > 0 && tmp->n < 128)
 	{
-		putchar('\n');
-		return;
-	}
-	while (tmp)
-	{
-		if (tmp->n == 0)
-			break;
-		if (!__isascii((tmp)->n))
-			break;
-		dprintf(STDOUT_FILENO, "%c", tmp->n);
+		printf("%c", tmp->n);
 		tmp = tmp->next;
 	}
-	putchar('\n');
+
+	printf("\n");
 }
 
 
